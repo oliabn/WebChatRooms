@@ -4,7 +4,7 @@ Channels tutorial: https://channels.readthedocs.io/en/latest/tutorial/index.html
 ## How to install channels
 1) Install channels (channels==3.0.4 for Django==4) to venv: 
     `python -m pip install -U channels`
-The installation process will be slightly different to use the channels==4
+The installation process will be slightly different to use the channels==4.
 2) Add channels to installed apps in settings.py:
 
 ```python
