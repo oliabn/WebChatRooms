@@ -9,6 +9,7 @@
     margin-right: 90px;
     margin-top: 30px;
     text-align:right;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
    }
    </style>
 </head>
@@ -21,25 +22,25 @@
       {% endif %}
     </div>
 
-    <div style="text-align:center">
+    <div style="text-align: center; width: 90%; font-family: Google Sans, Roboto, Arial, sans-serif;">
       <h2>The chat has started.</h2>
       <h2>{{request.user}}</h2>
     </div>
     <br>
 
-    <center>
+    <left>
     <div
       class="chat__item__container"
       id="id_chat_item_container"
-      style="font-size: 30px"
-    >
+      style="width: 90%; font-size: 20px; font-family: Google Sans,Roboto,Arial,sans-serif;">
       <br />
-      <input type="text" id="id_message_send_input" />
-      <button type="submit" id="id_message_send_button">Send Message</button>
+      <input type="text" id="id_message_send_input" style="width: 80%; height: 35px; border-radius: 10px;" />
+      <button type="submit" id="id_message_send_button" style="height: 35px; border-radius: 10px; font-family: Google Sans, Roboto, Arial, sans-serif;">
+        Send </button>
       <br />
       <br />
     </div>
-    </center>
+    </left>
 
     <script>
       // create WebSocket object
@@ -75,17 +76,18 @@
         const data = JSON.parse(e.data);
 
         // Add new div in id_chat_item_container with the message for the message history
-        var div = document.createElement("div");
-        div.innerHTML = data.username + ": " + data.message;
+        var messages_div = document.createElement("div");
+        messages_div.innerHTML = data.username + ": " + data.message;
         document.querySelector("#id_message_send_input").value = "";
-        document.querySelector("#id_chat_item_container").appendChild(div);
+        document.querySelector("#id_chat_item_container").appendChild(messages_div);
 
-        // Add new div in id_chat_item_container with the message getting date for the message history
-        var div = document.createElement("div");
-        div.style.fontSize = "small";
-        div.style.textAlign = "center"
-        div.innerHTML = data.date;
-        document.querySelector("#id_chat_item_container").appendChild(div);
+        // Add new div id_chat_item_container with the message getting date for the message history
+        var date_div = document.createElement("div");
+        date_div.style.fontSize = "small";
+        date_div.style.color = "#ABB2B9";
+        date_div.style.textAlign = "left";
+        date_div.innerHTML = data.date;
+        document.querySelector("#id_chat_item_container").appendChild(date_div);
       };
 
     </script>
