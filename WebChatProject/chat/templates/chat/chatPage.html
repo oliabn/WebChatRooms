@@ -42,25 +42,34 @@
     </center>
 
     <script>
+      // create WebSocket object
       const chatSocket = new WebSocket("ws://" + window.location.host + "/");
       chatSocket.onopen = function (e) {
         console.log("The connection was setup successfully !");
       };
+
+      // if the socket will close
       chatSocket.onclose = function (e) {
-        console.log("Something unexpected happened!");
+        console.log("Chat socket closed unexpectedly!");
       };
+
+      // focus on the id_message_send_input
       document.querySelector("#id_message_send_input").focus();
+
+      // sent a message from id_message_send_input when the Enter was clicked
       document.querySelector("#id_message_send_input").onkeyup = function (e) {
         if (e.keyCode == 13) {
           document.querySelector("#id_message_send_button").click();
         }
       };
+
+      // sent a message from id_message_send_input when the id_message_send_button was clicked
       document.querySelector("#id_message_send_button").onclick = function (e) {
-        var messageInput = document.querySelector(
-          "#id_message_send_input"
-        ).value;
-        chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}"}));
+        var messageInput = document.querySelector("#id_message_send_input").value;
+        chatSocket.send(JSON.stringify({ message: messageInput, username: "{{request.user.username}}"}));
       };
+
+      // If a message arrives
       chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         var div = document.createElement("div");
@@ -68,6 +77,7 @@
         document.querySelector("#id_message_send_input").value = "";
         document.querySelector("#id_chat_item_container").appendChild(div);
       };
+
     </script>
   </body>
 </html>
