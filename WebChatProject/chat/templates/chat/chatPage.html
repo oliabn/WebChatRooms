@@ -1,46 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-   .brd {
-    border: 100px;
-    /* background: #fc3; */
-    padding: 10px;
-    margin-right: 90px;
-    margin-top: 30px;
-    text-align:right;
-    font-family: Google Sans, Roboto, Arial, sans-serif;
-   }
-   </style>
+   <link rel="stylesheet" href="{% static 'styles/chat_page_style.css' %}">
 </head>
 
   <body>
 
-    <div class="brd">
-      {% if request.user.is_authenticated  %}
+    <div class="login_href">
+      {% if request.user.is_authenticated %}
       <a href = "{% url 'logout-user' %}">Logout</a>
       {% endif %}
     </div>
 
-    <div style="text-align: center; width: 90%; font-family: Google Sans, Roboto, Arial, sans-serif;">
+    <div class="user_name_text">
       <h2>The chat has started.</h2>
       <h2>{{request.user}}</h2>
     </div>
     <br>
 
-    <left>
-    <div
-      class="chat__item__container"
-      id="id_chat_item_container"
-      style="width: 90%; font-size: 20px; font-family: Google Sans,Roboto,Arial,sans-serif;">
+    <div class="chat__item__container" id="id_chat_item_container">
       <br />
-      <input type="text" id="id_message_send_input" style="width: 80%; height: 35px; border-radius: 10px;" />
-      <button type="submit" id="id_message_send_button" style="height: 35px; border-radius: 10px; font-family: Google Sans, Roboto, Arial, sans-serif;">
-        Send </button>
+      <input type="text" id="id_message_send_input" />
+      <button type="submit" id="id_message_send_button"> Send </button>
       <br />
       <br />
     </div>
-    </left>
 
     <script>
       // create WebSocket object
@@ -68,6 +53,7 @@
       document.querySelector("#id_message_send_button").onclick = function (e) {
         var messageInput = document.querySelector("#id_message_send_input").value;
         chatSocket.send(JSON.stringify({ message: messageInput, username: "{{request.user.username}}"}));
+        document.querySelector("#id_message_send_input").value = "";
       };
 
       // If a message arrives
@@ -78,7 +64,6 @@
         // Add new div in id_chat_item_container with the message for the message history
         var messages_div = document.createElement("div");
         messages_div.innerHTML = data.username + ": " + data.message;
-        document.querySelector("#id_message_send_input").value = "";
         document.querySelector("#id_chat_item_container").appendChild(messages_div);
 
         // Add new div id_chat_item_container with the message getting date for the message history
