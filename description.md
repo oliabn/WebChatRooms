@@ -25,7 +25,17 @@ INSTALLED_APPS = [
 
 3) Set the ASGI application to y default ASGI file in the projectin in settings.py:  
 
-    `ASGI_APPLICATION = 'WebChatProject.asgi.application'`
+    `ASGI_APPLICATION = 'WebChatProject.asgi.application'`  
+
+4) Define the channel layer in which we will be working and sharing data in setting.py:  
+
+```python
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+```
 
 
 ## How to test this chat
