@@ -31,24 +31,47 @@ INSTALLED_APPS = [
 ### What also need to be added to setting.py:  
 
 ```python
+ASGI_APPLICATION = 'WebChatProject.asgi.application'
+
 """Define the channel layer in which we will be working 
 and sharing data """
+# For Windows
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
 
+# For Linux
+# "default": {
+#         "BACKEND": "asgi_redis.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [(redis_host, 6379)],
+#         },
+#     },
+# }
+
+
 # redirect url for login, logout
-LOGIN_REDIRECT_URL = "chat-page"
+LOGIN_REDIRECT_URL = "index"
 
 LOGOUT_REDIRECT_URL = "login-user"
 ```
 
-## How to test this chat
-1) Install the required packages. In the terminal  
+## Redis
 
-`pip install -r requirements\requirements.txt`  
+I run Redis by Docker.
+
+To start a Redis server on port 6379, run the following command:
+
+`docker run -p 6379:6379 -d redis:5`
+
+## How to test this chat
+1) Install the required packages. 
+* Django==4.2.1
+* channels==3.0.4
+* asgi-redis==1.4.3
+* channels-redis==4.1.0  
 
 2) Make migrations. In the terminal:
 
