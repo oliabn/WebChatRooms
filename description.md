@@ -27,16 +27,22 @@ INSTALLED_APPS = [
 
     `ASGI_APPLICATION = 'WebChatProject.asgi.application'`  
 
-4) Define the channel layer in which we will be working and sharing data in setting.py:  
+### What also need to be added to setting.py:  
 
 ```python
+"""Define the channel layer in which we will be working 
+and sharing data """
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
-```
 
+# redirect url for login, logout
+LOGIN_REDIRECT_URL = "chat-page"
+
+LOGOUT_REDIRECT_URL = "login-user"
+```
 
 ## How to test this chat
 1) Install the required packages. In the terminal  
