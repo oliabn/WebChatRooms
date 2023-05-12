@@ -7,7 +7,8 @@ Channels tutorial: https://channels.readthedocs.io/en/latest/tutorial/index.html
 
     `python -m pip install -U channels`  
 
-The installation process will be slightly different to use the channels==4.
+The installation process will be slightly different to use the channels==4.  
+
 2) Add channels to installed apps in settings.py:
 
 ```python
