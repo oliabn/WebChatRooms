@@ -1,11 +1,12 @@
 from django.urls import path, include
 # from chat import  as chat_views
-from .views import chatPage
+from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     # chat
-    path("", chatPage, name="chat-page"),
+    path("", views.index, name="index"),
+    path("chat/<str:room_name>/", views.room, name="room"),
 
     # login
     # http://127.0.0.1:8000/auth/login
