@@ -27,56 +27,60 @@
       <br />
     </div>
 
-    <script>
-      // create WebSocket object
-      const chatSocket = new WebSocket("ws://" + window.location.host + "/");
+    {{ room_name|json_script:"room-name" }}
 
-      chatSocket.onopen = function (e) {
-          console.log("The connection was setup successfully !");
-      };
+ <script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
-      // if the socket will close
-      chatSocket.onclose = function (e) {
-          console.log("Chat socket closed unexpectedly!");
-      };
+    // create WebSocket object
+    const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + '/');
 
-      // focus on the id_message_send_input
-      document.querySelector("#id_message_send_input").focus();
+    chatSocket.onopen = function (e) {
+        console.log("The connection was setup successfully !");
+    };
 
-      // click on #id_message_send_button when the Enter was clicked
-      document.querySelector("#id_message_send_input").onkeyup = function (e) {
-          if (e.keyCode == 13) {
-              document.querySelector("#id_message_send_button").click();
+    // if the socket will close
+    chatSocket.onclose = function (e) {
+        console.log("Chat socket closed unexpectedly!");
+    };
+
+    // focus on the id_message_send_input
+    document.querySelector("#id_message_send_input").focus();
+
+    // click on #id_message_send_button when the Enter was clicked
+    document.querySelector("#id_message_send_input").onkeyup = function (e) {
+        if (e.keyCode == 13) {
+          document.querySelector("#id_message_send_button").click();
         }
-      };
+    };
 
       // sent a message from id_message_send_input when the id_message_send_button was clicked
-      document.querySelector("#id_message_send_button").onclick = function (e) {
-          var messageInput = document.querySelector("#id_message_send_input").value;
-          chatSocket.send(JSON.stringify({ message: messageInput,
-                                           username: "{{request.user.username}}"}));
-          document.querySelector("#id_message_send_input").value = "";
-      };
+    document.querySelector("#id_message_send_button").onclick = function (e) {
+        var messageInput = document.querySelector("#id_message_send_input").value;
+        chatSocket.send(JSON.stringify({ message: messageInput,
+                                         username: "{{request.user.username}}"}));
+        document.querySelector("#id_message_send_input").value = "";
+    };
 
-      // If a message arrives
-      chatSocket.onmessage = function (e) {
-          // Parse data
-          const data = JSON.parse(e.data);
+    // If a message arrives
+    chatSocket.onmessage = function (e) {
+        // Parse data
+        const data = JSON.parse(e.data);
 
-          // Add new div in id_chat_item_container with username and message for the message history
-          var messages_div = document.createElement("div");
-          messages_div.innerHTML = data.username + ": " + data.message;
-          document.querySelector("#id_chat_item_container").appendChild(messages_div);
+        // Add new div in id_chat_item_container with username and message for the message history
+        var messages_div = document.createElement("div");
+        messages_div.innerHTML = data.username + ": " + data.message;
+        document.querySelector("#id_chat_item_container").appendChild(messages_div);
 
-          // Add new div id_chat_item_container with the message getting date for the message history
-          var date_div = document.createElement("div");
-          date_div.style.fontSize = "small";
-          date_div.style.color = "#ABB2B9";
-          date_div.style.textAlign = "left";
-          date_div.innerHTML = data.date;
-          document.querySelector("#id_chat_item_container").appendChild(date_div);
-      };
+        // Add new div id_chat_item_container with the message getting date for the message history
+        var date_div = document.createElement("div");
+        date_div.style.fontSize = "small";
+        date_div.style.color = "#ABB2B9";
+        date_div.style.textAlign = "left";
+        date_div.innerHTML = data.date;
+        document.querySelector("#id_chat_item_container").appendChild(date_div);
+    };
 
-    </script>
+ </script>
   </body>
 </html>
