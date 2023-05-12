@@ -62,9 +62,25 @@ LOGOUT_REDIRECT_URL = "login-user"
 
 I run Redis by Docker.
 
-To start a Redis server on port 6379, run the following command:
+* To start a Redis server on port 6379, run the following command:
 
-`docker run -p 6379:6379 -d redis:5`
+`docker run -p 6379:6379 -d redis:5`  
+
+* To make sure that the channel layer can communicate with Redis.  
+
+Open a Django shell and run the following commands:  
+
+```commandline
+$ python manage.py shell
+>>> import channels.layers
+>>> channel_layer = channels.layers.get_channel_layer()
+>>> from asgiref.sync import async_to_sync
+>>> async_to_sync(channel_layer.send)('test_channel', {'type': 'hello'})
+>>> async_to_sync(channel_layer.receive)('test_channel')
+{'type': 'hello'}
+```  
+
+Type Control-D to exit the Django shell.
 
 ## How to test this chat
 1) Install the required packages. 
