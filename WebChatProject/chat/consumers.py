@@ -34,17 +34,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json["message"]
         username = text_data_json["username"]
         # save message to Message table
-        await self.new_message(message=message)
+        await self.save_new_message_to_db(message=message)
 
         # Sends an event to a group
         # event has "type": "sendMessage", where sendMessage is function below
         await self.channel_layer.group_send(self.room_group_name,
-                                            {"type": "sendMessage",
+                                            {"type": "send_message",
                                              "message": message,
                                              "username": username, })
 
-
-    async def sendMessage(self, event):
+    async def send_message(self, event):
         """Receive message from the room group Event.
         It will be invoked for consumers that receive the event"""
 
@@ -58,7 +57,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                               "date": date, }))
 
     @database_sync_to_async
-    def new_message(self, message):
+    def save_new_message_to_db(self, message):
         """Save new message to table Message"""
 
         Message.objects.create(user=self.user,
