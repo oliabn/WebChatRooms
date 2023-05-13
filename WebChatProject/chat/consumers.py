@@ -9,21 +9,30 @@ from .models import Message
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        """Connect a user to chat"""
 
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
-        # Join to room group
+        # join user to an existing room group or a newly created one
         await self.channel_layer.group_add(self.room_group_name,
                                            self.channel_name)
 
         # get user from scope
         self.user = self.scope['user']
+        # get message history data to send it for connecting user
+        message_history = await self.get_message_history()
 
+        # accept user connection
         await self.accept()
 
+        # send messages from message_history to user
+        for msg in message_history:
+            await self.send(text_data=json.dumps(msg))
+
     async def disconnect(self, close_code):
-        # Leave the room group
+        """Leave the room group"""
+
         await self.channel_layer.group_discard(self.room_group_name,
                                                self.channel_name)
 
@@ -34,7 +43,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json["message"]
         username = text_data_json["username"]
         # save message to Message table
-        await self.save_new_message_to_db(message=message)
+        await self.save_message_to_db(message=message)
 
         # Sends an event to a group
         # event has "type": "sendMessage", where sendMessage is function below
@@ -57,8 +66,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                               "date": date, }))
 
     @database_sync_to_async
-    def save_new_message_to_db(self, message):
-        """Save new message to table Message"""
+    def save_message_to_db(self, message):
+        """Save message to table Message"""
 
         Message.objects.create(user=self.user,
                                text=message)
+
+    @database_sync_to_async
+    def get_message_history(self):
+        """Get messages from the table Message.
+        Return a list of dictionaries with messages,
+        usernames, and dates:
+        [{"message": msg1.text, "username": msg1.user.username, "date": str(msg1.timestamp)},
+        {"message": msg2.text, "username": msg2.user.username, "date": str(msg2.timestamp)},
+        ...]"""
+
+        messages = Message.objects.all()
+        message_history = []
+        for msg in messages:
+            message_history.append({
+                "message": msg.text,
+                "username": msg.user.username,
+                "date": str(msg.timestamp)
+            })
+
+        return message_history
