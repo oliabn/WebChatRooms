@@ -4,6 +4,8 @@ import datetime
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+from .models import Message
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -14,6 +16,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Join to room group
         await self.channel_layer.group_add(self.room_group_name,
                                            self.channel_name)
+
+        # get user from scope
+        self.user = self.scope['user']
 
         await self.accept()
 
@@ -28,6 +33,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         username = text_data_json["username"]
+        # save message to Message table
+        await self.new_message(message=message)
 
         # Sends an event to a group
         # event has "type": "sendMessage", where sendMessage is function below
@@ -35,6 +42,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                             {"type": "sendMessage",
                                              "message": message,
                                              "username": username, })
+
 
     async def sendMessage(self, event):
         """Receive message from the room group Event.
@@ -48,3 +56,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({"message": message,
                                               "username": username,
                                               "date": date, }))
+
+    @database_sync_to_async
+    def new_message(self, message):
+        """Save new message to table Message"""
+
+        Message.objects.create(user=self.user,
+                               text=message)
