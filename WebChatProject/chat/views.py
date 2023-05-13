@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 
+from .models import Room
+
 
 def index(request):
     return render(request, "chat/index.html")
@@ -11,6 +13,8 @@ def room(request, room_name):
 
     if not request.user.is_authenticated:
         return redirect("login-user")
+
+    room, created = Room.objects.get_or_create(name=room_name)
 
     context = {"room_name": room_name}
     return render(request, "chat/chatPage.html", context)

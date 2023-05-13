@@ -4,7 +4,7 @@ import datetime
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from .models import Message
+from .models import Message, Room
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -70,18 +70,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
         """Save message to table Message"""
 
         Message.objects.create(user=self.user,
-                               text=message)
+                               text=message,
+                               room=Room.objects.get(name=self.room_name))
 
     @database_sync_to_async
     def get_message_history(self):
-        """Get messages from the table Message.
+        """Get messages of room group from the table Message.
         Return a list of dictionaries with messages,
         usernames, and dates:
         [{"message": msg1.text, "username": msg1.user.username, "date": str(msg1.timestamp)},
         {"message": msg2.text, "username": msg2.user.username, "date": str(msg2.timestamp)},
         ...]"""
 
-        messages = Message.objects.all()
+        messages = Message.objects.all().filter(room__name=self.room_name)
         message_history = []
         for msg in messages:
             message_history.append({
