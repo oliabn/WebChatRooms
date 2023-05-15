@@ -21,13 +21,12 @@
 }
 
 #id_message_send_input {
-    width: 30%;
+    width: 50%;
     height: 35px;
     border-radius: 10px;
 }
 
 #id_message_send_button {
-    width: 75%;
     height: 35px;
     border-radius: 10px;
     font-family: Google Sans, Roboto, Arial, sans-serif;

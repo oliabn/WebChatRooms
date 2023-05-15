@@ -1,5 +1,4 @@
 from django.urls import path, include
-# from chat import  as chat_views
 from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
