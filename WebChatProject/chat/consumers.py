@@ -8,6 +8,7 @@ from .models import Message, Room
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    """Web socket event consumer"""
     async def connect(self):
         """Connect a user to chat"""
 
