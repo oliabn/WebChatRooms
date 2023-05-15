@@ -12,7 +12,7 @@ def room(request, room_name):
     If user isn't authenticated he gets LoginView"""
 
     if not request.user.is_authenticated:
-        return redirect("login-user")
+        return redirect("login_user")
 
     room, created = Room.objects.get_or_create(name=room_name)
 

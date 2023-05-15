@@ -9,7 +9,7 @@
 
     <div class="login_href">
       {% if request.user.is_authenticated %}
-      <a href = "{% url 'logout-user' %}">Logout</a>
+        <a href = "{% url 'logout_user' %}">Logout</a>
       {% endif %}
     </div>
 
@@ -22,7 +22,7 @@
     <div class="chat__item__container" id="id_chat_item_container">
       <br />
       <input type="text" id="id_message_send_input" />
-      <button type="submit" id="id_message_send_button"> Send </button>
+      <button type="submit" id="id_message_send_button">❯❯❯</button>
       <br />
       <br />
     </div>

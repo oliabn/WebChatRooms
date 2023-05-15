@@ -1,33 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'styles/index_style.css' %}">
     <title>Chat Rooms</title>
 </head>
 <body>
-Enter the room name would you like to enter<br>
-<input id="room-name-input" type="text" size="100"><br>
-<input id="room-name-submit" type="button" value="Enter">
+
+    <div class="login_href">
+        {% if request.user.is_authenticated %}
+            <a href = "{% url 'logout_user' %}">Logout</a>
+        {% else %}
+            <a href = "{% url 'login_user' %}">Login</a>
+        {% endif %}
+    </div>
+
+
+    <div class="form_item_container" id="form_item_container">
+        <p id="help_text"> Enter the room name would you like to enter </p>
+        <input id="room_name_input" type="text" size="100">
+        <input id="room_name_submit" type="button" value="❯❯❯">
+    </div>
 
 <script>
-    document.querySelector('#room-name-input').focus();
-    document.querySelector('#room-name-input').onkeyup = function (e) {
+
+    document.querySelector('#room_name_input').focus();
+
+    // if enter was clicked than click on room_name_submit button
+    document.querySelector('#room_name_input').onkeyup = function (e) {
         if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#room-name-submit').click();
+            document.querySelector('#room_name_submit').click();
         }
     };
 
-    document.querySelector('#room-name-submit').onclick = function (e) {
-        var roomName = document.querySelector('#room-name-input').value;
+    // if room_name_submit button was clicked than
+    // get room name and go to the room page
+    document.querySelector('#room_name_submit').onclick = function (e) {
+        // get roomName from room_name_input
+        var roomName = document.querySelector('#room_name_input').value;
+        //change the path of the current page
         window.location.pathname = '/chat/' + roomName + '/';
     };
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
+
 </body>
 </html>

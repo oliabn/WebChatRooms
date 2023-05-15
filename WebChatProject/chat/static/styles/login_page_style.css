@@ -1,0 +1,23 @@
+label {
+    font-size: 100%;
+    font-family: Google Sans,Roboto,Arial,sans-serif;
+}
+
+#id_username {
+    width: 30%;
+    height: 30px;
+    border-radius: 10px;
+}
+
+#id_password {
+    width: 30%;
+    height: 30px;
+    border-radius: 10px;
+}
+
+#id_send_form_button {
+    width: 15%;
+    height: 35px;
+    border-radius: 10px;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
+}

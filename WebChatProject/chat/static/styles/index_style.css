@@ -1,0 +1,31 @@
+.login_href {
+    border: 100px;
+    /* background: #fc3; */
+    padding: 10px;
+    margin-right: 90px;
+    margin-top: 30px;
+    text-align:right;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
+}
+
+#id_chat_item_container {
+}
+
+#help_text {
+    font-size: 30px;
+    font-family: Google Sans,Roboto,Arial,sans-serif;
+}
+
+#room_name_input {
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+}
+
+#room_name_submit {
+    width: 5%;
+    height: 37px;
+    border-radius: 10px;
+    font-size: 95%;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
+}
