@@ -1,34 +1,34 @@
-   .login_href {
-        border: 100px;
-        /* background: #fc3; */
-        padding: 10px;
-        margin-right: 90px;
-        margin-top: 30px;
-        text-align:right;
-        font-family: Google Sans, Roboto, Arial, sans-serif;
-   }
+.login_href {
+    border: 100px;
+     /* background: #fc3; */
+     padding: 10px;
+     margin-right: 90px;
+     margin-top: 30px;
+     text-align:right;
+     font-family: Google Sans, Roboto, Arial, sans-serif;
+}
 
-   .user_name_text {
-        text-align: center;
-        width: 90%;
-        font-family: Google Sans, Roboto, Arial, sans-serif;
-   }
+.user_name_text {
+    text-align: center;
+    width: 90%;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
+}
 
-   #id_chat_item_container {
-        width: 90%;
-        font-size: 20px;
-        text-align:left;
-        font-family: Google Sans,Roboto,Arial,sans-serif;
-   }
+#id_chat_item_container {
+    font-size: 20px;
+    text-align: left;
+    font-family: Google Sans,Roboto,Arial,sans-serif;
+}
 
-   #id_message_send_input {
-        width: 80%;
-        height: 35px;
-        border-radius: 10px;
-   }
+#id_message_send_input {
+    width: 30%;
+    height: 35px;
+    border-radius: 10px;
+}
 
-   #id_message_send_button {
-        height: 35px;
-        border-radius: 10px;
-        font-family: Google Sans, Roboto, Arial, sans-serif;
-   }
+#id_message_send_button {
+    width: 75%;
+    height: 35px;
+    border-radius: 10px;
+    font-family: Google Sans, Roboto, Arial, sans-serif;
+}
