@@ -7,52 +7,42 @@
 
 <body>
 
-    <!-- User login form -->
-    <form method ="post">
+<!-- User login form -->
+<form method ="post">
     {% csrf_token %}
 
-    <div class="form_group">
-        <label for=""> Username </label>
-        <div> <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username"
-                     maxlength="150" required="" id="id_username" style="border-radius: 10px;"> </div>
+    <div class="container">
+        <div class="login_section">
+            <div class="form_box">
+                <h2>Login</h2>
+
+                <div class="input_box">
+                    <label for="">Username</label>
+                    <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                </div>
+
+                <div class="input_box">
+                    <label for="">Password</label>
+                    <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                </div>
+
+                <input type="submit" class="btn" value="Login">
+
+                <div class="group_selection">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                    <a href="#">Create account</a>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-        <p></p>
-
-     <div class="form_group">
-        <label for=""> Password </label>
-        <div> <input type="password" name="password" autocomplete="current-password" required="" id="id_password"> </div>
-     </div>
-
-    <br/>
-    <button type = "submit" id="id_send_form_button">Login</button>
-    </form>
+</form>
 
     <!-- A simple User login form creation option -->
     <!--
     <form method ="post">
     {% csrf_token %}
     {{form.as_p}}
-    <br>
-    <button type = "submit">Login</button>
-    </form>
-    -->
-
-    <!-- Another simple login form creation option -->
-    <!--
-    <form method ="post">
-    {% csrf_token %}
-
-    {% for field in form %}
-        <div class="form_group">
-        <label for=""> {{ field.label }} </label>
-        <div> {{ field }} </div>
-        {% if field.errors %}
-            <p> {{ field.errors }} </p>
-        {% endif %}
-        </div>
-    {% endfor %}
-
     <br>
     <button type = "submit">Login</button>
     </form>
