@@ -56,6 +56,15 @@ CHANNEL_LAYERS = {
 LOGIN_REDIRECT_URL = "index"
 
 LOGOUT_REDIRECT_URL = "login-user"
+
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "your email address like the sender"
+EMAIL_HOST_PASSWORD = "app-password to your email"
 ```
 
 ## Redis
@@ -83,11 +92,15 @@ $ python manage.py shell
 Type Control-D to exit the Django shell.
 
 ## How to test this chat
-1) Install the required packages. 
-* Django==4.2.1
-* channels==3.0.4
-* asgi-redis==1.4.3
-* channels-redis==4.1.0  
+1) Install the required packages.    
+* Django==4.2.1  
+* channels==3.0.4 
+* asgi-redis==1.4.3 
+* channels-redis==4.1.0   
+
+! If you are going to install these versions of the packages,   
+installed them one at a time, not all at the same time.   
+Because there will be Errors and something will not be installed.   
 
 2) Make migrations. In the terminal:
 
