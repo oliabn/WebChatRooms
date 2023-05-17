@@ -8,37 +8,45 @@
 </head>
 <body>
 
-    <div class="login_href">
-        {% if request.user.is_authenticated %}
-            <a href = "{% url 'logout_user' %}">Logout</a>
-        {% else %}
-            <a href = "{% url 'login_user' %}">Login</a>
-        {% endif %}
-    </div>
+    <div class="container">
+        <div class="enter_room_section">
+            <div class="form_box">
+                <h2>Room</h2>
 
+                <div class="input_box">
+                    <label for="">Room name</label>
+                    <input type="text" name="room_name" autofocus="" autocapitalize="none" autocomplete="room_name" maxlength="150" required="" id="id_room_name_input">
+                </div>
 
-    <div class="form_item_container" id="form_item_container">
-        <p id="help_text"> Enter the room name would you like to enter </p>
-        <input id="room_name_input" type="text" size="100">
-        <input id="room_name_submit" type="button" value="❯❯❯">
+                <input type="submit" class="btn" id="id_room_name_submit" value="❯❯❯">
+
+                <div class="group_selection">
+                    {% if request.user.is_authenticated %}
+                        <a href = "{% url 'logout_user' %}">Logout</a>
+                    {% else %}
+                        <a href = "{% url 'login_user' %}">Login</a>
+                    {% endif %}
+                </div>
+          </div>
+        </div>
     </div>
 
 <script>
 
-    document.querySelector('#room_name_input').focus();
+    document.querySelector('#id_room_name_input').focus();
 
-    // if enter was clicked than click on room_name_submit button
-    document.querySelector('#room_name_input').onkeyup = function (e) {
+    // if enter was clicked than click on room_name_submit button!
+    document.querySelector('#id_room_name_input').onkeyup = function (e) {
         if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#room_name_submit').click();
+            document.querySelector('#id_room_name_submit').click();
         }
     };
 
     // if room_name_submit button was clicked than
     // get room name and go to the room page
-    document.querySelector('#room_name_submit').onclick = function (e) {
+    document.querySelector('#id_room_name_submit').onclick = function (e) {
         // get roomName from room_name_input
-        var roomName = document.querySelector('#room_name_input').value;
+        var roomName = document.querySelector('#id_room_name_input').value;
         //change the path of the current page
         window.location.pathname = '/chat/' + roomName + '/';
     };
