@@ -3,6 +3,7 @@
  white: #F0FFFF
  light-black: #323433
  dark-black: #252727
+ blue: #00b1cc
  */
 
 @import url('https://fonts.cdnfonts.com/css/poppins');
@@ -23,11 +24,10 @@ body {
     min-height: 100vh;
 }
 
-.enter_room_section {
+.input_section {
     height: 400px;
     width: 400px;
     background: rgba(255,255,255,.1);
-    /* background: rgba(0,0,0,.2); */
     border-radius: 16px;
     backdrop-filter: blur(7px);
     border: 2px solid rgba(0,0,0,.3);
@@ -41,7 +41,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.enter_room_section h2 {
+.input_section h2 {
     text-align: center;
     font_size: 38px;
     color: #323433;
@@ -92,7 +92,7 @@ input:valid ~ label {
 
 .group_selection {
     display: flex;
-   justify-content: space-between;
+    justify-content: space-between;
 }
 
 .group_selection a {
