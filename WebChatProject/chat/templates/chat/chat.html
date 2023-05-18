@@ -14,7 +14,7 @@
 <!--  Message header section starts    -->
         <div class="msg-header">
              <div class="container1">
-                <img src="user1.jpg" class="msgimg">
+                <img src="img/user_icon.png" class="msgimg">
                 <div class="active ">
                     <p>{{request.user}}</p>
                 </div>
@@ -31,8 +31,8 @@
                      <div class="msg-page">
                          <!-- Incoming messages -->
  				        <div class="received-chats" id="id-received-chats">
-<!-- Msg1 Msg2 Msg3 ...-->
-<!-- End of Contains the incoming and outgoing messages -->
+                        <!-- Msg1 Msg2 Msg3 ...-->
+                        <!-- End of Incoming messages-->
                         </div>
                      </div>
                 </div>
@@ -112,25 +112,21 @@
 
 <!--        var avatar_img = document.createElement("img");-->
 <!--        avatar_img.id = 'id-received-chats-img';-->
-<!--        avatar_img.src = "user2.png";-->
+<!--        avatar_img.src = "user_icon.png";-->
 <!--        document.querySelector("#received-chats-img").appendChild(avatar_img);-->
 
         // Add new div with username and message in id-received-chats
         var received_msg_div = document.createElement("div");
         received_msg_div.className = "received-msg";
         received_msg_div.id = "id-received-msg";
-        received_msg_div.style.display = 'inline-block';
-        received_msg_div.style.padding = '0 0 0 10px';
-        received_msg_div.style.verticalAlign = 'top';
-        received_msg_div.style.width = '92%';
         document.querySelector("#id-received-chats").appendChild(received_msg_div);
 
         var msg_div = document.createElement("div");
         msg_div.className = 'received-msg-inbox';
         msg_div.id = 'id-received-msg-inbox';
-        msg_div.style.width = '57%';
-        msg_div.innerHTML = data.username + ": " + data.message + " " + data.date;
+        msg_div.innerHTML = `<p>${data.message}</p><span class="time">${data.username} | ${data.date}`
         document.querySelector("#id-received-msg").appendChild(msg_div);
+
     };
 
  </script>
