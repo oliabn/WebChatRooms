@@ -27,6 +27,3 @@ class Message(models.Model):
 
     def __str__(self):
         return f'room: {self.room.name}, user: {self.user.username}, time: {self.timestamp}'
-
-    class Meta:
-        ordering = ['-timestamp']
