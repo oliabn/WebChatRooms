@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   <link rel="stylesheet" href="{% static 'styles/chat_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/chat_style.css' %}">
+<!--    <link rel="icon" href="{% static 'images/user_icon.png' %}" type="image/png">-->
     <title>Room</title>
 </head>
 
@@ -14,7 +15,7 @@
 <!--  Message header section starts    -->
         <div class="msg-header">
              <div class="container1">
-                <img src="img/user_icon.png" class="msgimg">
+                <img src="{% static 'images/user_icon.png' %}" class="msgimg">
                 <div class="active ">
                     <p>{{request.user}}</p>
                 </div>
