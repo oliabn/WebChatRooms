@@ -1,3 +1,11 @@
+/*
+ colors:
+ white: #F0FFFF
+ light-black: #323433
+ dark-black: #252727
+ blue: #00b1cc
+ */
+
 @import url('https://fonts.cdnfonts.com/css/poppins');
 * {
     box-sizing: border-box;
@@ -27,7 +35,7 @@ img {
     height: 10%;
     border-bottom: none;
     display: inline-block;
-    background-color: #efefef;
+    background-color: #323433;
     margin: 0;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -49,7 +57,7 @@ img {
 .active {
     width: 150px;
     float: left;
-    color: black;
+    color: #F0FFFF;
     font-weight: bold;
     margin: 0 0 0 5px;
     height: 10%;
@@ -95,7 +103,7 @@ img {
         outline: none !important;
         border-radius: 20px;
         width: 61% !important;
-        background-color: #fff;
+        background-color: #F0FFFF;
         position: relative;
         display: flex;
         flex-wrap: wrap;
@@ -118,7 +126,7 @@ img {
         font-size: 1rem;
         line-height: 1.5;
         color: #495057;
-        background-color: #fff;
+        background-color: #F0FFFF;
         background-clip: padding-box;
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
@@ -171,23 +179,29 @@ received-chats-img {
 }
 
 .received-msg-inbox p {
-    background: #efefef none repeat scroll 0 0;
+    background: #F0FFFFnone repeat scroll 0 0;
     border-radius: 10px;
     border: 1px solid #888;
-    color: #646464;
+    color: #252727;
     font-size: 14px;
     margin-left: 1rem;
     padding: 1rem;
     width: 100%;
    /* box-shadow: rgb(0 0 0 / 25%) 1px 1px 1px 1px; */
 }
-    p {
+
+p {
     overflow-wrap: break-word;
+}
+
+.input-group-append {
+    border: 1px solid #ccc;
+    background-color: #F0FFFF;
 }
 
 /* Styling the msg-sent time  */
 .time {
-    color: #777;
+    color: #C0C4C8;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
