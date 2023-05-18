@@ -17,4 +17,4 @@ def room(request, room_name):
     room, created = Room.objects.get_or_create(name=room_name)
 
     context = {"room_name": room_name}
-    return render(request, "chat/chatPage.html", context)
+    return render(request, "chat/chat.html", context)
