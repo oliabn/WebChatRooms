@@ -16,27 +16,29 @@
         <div class="msg-header">
              <div class="container1">
 
-                <img src="{% static 'images/user_icon.png' %}" class="msgimg">
                 <div class="active ">
+                    <img src="{% static 'images/user_icon.png' %}" class="msgimg">
                     <p>{{request.user}}</p>
                 </div>
-                <div class="login_href">
-                    {% if request.user.is_authenticated %}
-                    <a href = "{% url 'logout_user' %}">Logout</a>
-                    {% endif %}
-                </div>
+                <nav class="navigation-list">
+        	 	    <ul>
+                        {% if request.user.is_authenticated %}
+            		        <li><a href="{% url 'logout_user' %}">Logout</a></li>
+                        {% endif %}
+            		    <li><a href="#">Something</a></li>
+            	    </ul>
+                </nav>
 
              </div>
         </div>
 <!-- Message header section ends -->
 
 <!-- Chat inbox section starts -->
-         
     <div class="chat-page">
         <div class="msg-inbox">
                 <div class="chats">
                     <!-- Message container -->
-                     <div class="msg-page">
+                     <div class="msg-page" id="idMessageBlock">
                          <!-- Incoming messages -->
  				        <div class="received-chats" id="id-received-chats">
                         <!-- Msg1 Msg2 Msg3 ...-->
@@ -99,10 +101,10 @@
 
         // <!-- Msg structure. Child of id-received-chats -->
 
-        //                     <received_msg_div class="received-msg" id="id-received-msg">
-        //                         <msg_div class="received-msg-inbox" id="id-received-msg-inbox">
+        //                     <received_msg_div class="received-msg">
+        //                         <msg_div class="received-msg-inbox">
         //                            <!-- MSG: 1) avatar, 2) span with tome and sender name, 3) msg text -->
-        //                            <imd_div class="received-chats-img" class="id-received-chats-img">
+        //                            <imd_div class="received-chats-img" id="id-received-chats-img">
         //                                  <avatar_img id="id-avatar_img" src="user2.png">
         //                             </img_div>
         //                             <span class="time">18:06 PM | July 24 </span>
@@ -112,19 +114,29 @@
         //                      </received_msg_div>
         // <!-- End Msg -->
 
-        // Add new div with username and message in id-received-chats
+        // Add new div with user-icon, username, and message text in id-received-chats
+
+        // Container for current msg
         var received_msg_div = document.createElement("div");
         received_msg_div.className = "received-msg";
-        received_msg_div.id = "id-received-msg";
         document.querySelector("#id-received-chats").appendChild(received_msg_div);
 
+        // element with user-icon, username, and message text
         var msg_div = document.createElement("div");
         msg_div.className = 'received-msg-inbox';
-        msg_div.id = 'id-received-msg-inbox';
         msg_div.innerHTML = `<div class="received-chats-img"> <img src="{% static 'images/user_icon2.png' %}">
                                 <span class="time">${data.username} | ${data.date}</span></div>`;
         msg_div.innerHTML += `<p>${data.message}</p>`;
-        document.querySelector("#id-received-msg").appendChild(msg_div);
+        received_msg_div.appendChild(msg_div);
+
+        // Scroll msg-page (idMessageBlock) to the bottom
+
+        // get a link to the idMessageBlock element
+        var message_block_link = document.getElementById("idMessageBlock");
+        // calculate the height of the idMessageBlock
+        var div_height = message_block_link.scrollHeight;
+        // Scroll the idMessageBlock element to the bottom
+        message_block_link.scrollTop = div_height;
     };
 
  </script>

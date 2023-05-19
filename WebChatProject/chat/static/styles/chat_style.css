@@ -42,15 +42,15 @@ img {
 }
 
 .msgimg {
-    margin-left: 2%;
     float: left;
+    margin: 0 10px;
 }
 
 .container1 {
-    width: 270px;
     height: auto;
-    float: left;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* styling user-name */
@@ -76,6 +76,25 @@ img {
     text-decoration: underline;
 }
 
+/* navigation-list loke menu in header */
+.navigation-list {
+	align="right";
+}
+
+.navigation-list ul {
+  	display: flex;
+  	list-style: none;
+}
+
+.navigation-list li {
+  margin-right: 20px;
+
+}
+
+.navigation-list a {
+  	color: #F0FFFF;
+  	text-decoration: none;
+}
 
 /* Styling the chat box container */
 .chat-page {
@@ -88,7 +107,6 @@ img {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
 
 .chats {
     padding: 30px 15px 0 25px;
@@ -109,6 +127,7 @@ img {
        height: 11%;
        background-color: rgb(239 239 239);
 }
+
 /* Styling the input field */
 .input-group {
     float: right;
