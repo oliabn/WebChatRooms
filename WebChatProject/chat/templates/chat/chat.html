@@ -20,11 +20,17 @@
                 <div class="active ">
                     <p>{{request.user}}</p>
                 </div>
-                <div class="login_href">
-                    {% if request.user.is_authenticated %}
-                    <a href = "{% url 'logout_user' %}">Logout</a>
-                    {% endif %}
-                </div>
+<!--                <div class="login_href">-->
+<!--                    {% if request.user.is_authenticated %}-->
+<!--                    <a href = "{% url 'logout_user' %}">Logout</a>-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+                <nav class="navigation-list">
+        	 	    <ul>
+            		    <li><a href="#">Login</a></li>
+            		    <li><a href="#">Something</a></li>
+            	    </ul>
+                </nav>
 
              </div>
         </div>

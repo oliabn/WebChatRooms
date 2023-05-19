@@ -76,6 +76,25 @@ img {
     text-decoration: underline;
 }
 
+/* navigation-list loke menu in header */
+.navigation-list {
+	align="right";
+}
+
+.navigation-list ul {
+  	display: flex;
+  	list-style: none;
+}
+
+.navigation-list li {
+  margin-right: 20px;
+
+}
+
+.navigation-list a {
+  	color: #F0FFFF;
+  	text-decoration: none;
+}
 
 /* Styling the chat box container */
 .chat-page {
