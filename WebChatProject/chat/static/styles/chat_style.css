@@ -61,8 +61,21 @@ img {
     font-weight: bold;
     margin: 0 0 0 5px;
     height: 10%;
-
 }
+
+.container1 a {
+    color: #F0FFFF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.container1 a:hover {
+    color: #00b1cc;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 
 /* Styling the chat box container */
 .chat-page {
