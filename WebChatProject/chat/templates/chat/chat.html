@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles/chat_style.css' %}">
+<!--    <link rel="icon" href="{% static 'images/user_icon.png' %}" type="image/png">-->
+    <title>Room</title>
+</head>
+
+<body>
+
+<!-- Main container  -->
+<div class="container">
+<!--  Message header section starts    -->
+        <div class="msg-header">
+             <div class="container1">
+
+                <img src="{% static 'images/user_icon.png' %}" class="msgimg">
+                <div class="active ">
+                    <p>{{request.user}}</p>
+                </div>
+                <div class="login_href">
+                    {% if request.user.is_authenticated %}
+                    <a href = "{% url 'logout_user' %}">Logout</a>
+                    {% endif %}
+                </div>
+
+             </div>
+        </div>
+<!-- Message header section ends -->
+
+<!-- Chat inbox section starts -->
+         
+    <div class="chat-page">
+        <div class="msg-inbox">
+                <div class="chats">
+                    <!-- Message container -->
+                     <div class="msg-page">
+                         <!-- Incoming messages -->
+ 				        <div class="received-chats" id="id-received-chats">
+                        <!-- Msg1 Msg2 Msg3 ...-->
+                        <!-- End of Incoming messages-->
+                        </div>
+                     </div>
+                </div>
+
+        <!--  Message bottom section starts -->
+               <div class="msg-bottom">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="id-message-send-input">
+                        <button class="input-group-append"  type="submit" id="id-message-send-button"> ❯❯❯ </button>
+                    </div>
+               </div>
+        <!-- Message bottom section ends. -->
+        </div>
+    </div>
+</div>
+
+{{ room_name|json_script:"room-name" }}
+
+ <script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+    // create WebSocket object
+    const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + '/');
+
+    chatSocket.onopen = function (e) {
+        console.log("The connection was setup successfully !");
+    };
+
+    // if the socket will close
+    chatSocket.onclose = function (e) {
+        console.log("Chat socket closed unexpectedly!");
+    };
+
+    // focus on the id-message-send-input
+    document.querySelector("#id-message-send-input").focus();
+
+    // click on #id-message-send-button when the Enter was clicked
+    document.querySelector("#id-message-send-input").onkeyup = function (e) {
+        if (e.keyCode == 13) {
+          document.querySelector("#id-message-send-button").click();
+        }
+    };
+
+      // sent a message from id-message-send-input when the id_message-send-button was clicked
+    document.querySelector("#id-message-send-button").onclick = function (e) {
+        var messageInput = document.querySelector("#id-message-send-input").value;
+        chatSocket.send(JSON.stringify({ message: messageInput,
+                                         username: "{{request.user.username}}"}));
+        document.querySelector("#id-message-send-input").value = "";
+    };
+
+    // If a message arrives
+    chatSocket.onmessage = function (e) {
+        // Parse data
+        const data = JSON.parse(e.data);
+
+        // <!-- Msg structure. Child of id-received-chats -->
+
+        //                     <received_msg_div class="received-msg" id="id-received-msg">
+        //                         <msg_div class="received-msg-inbox" id="id-received-msg-inbox">
+        //                            <!-- MSG: 1) avatar, 2) span with tome and sender name, 3) msg text -->
+        //                            <imd_div class="received-chats-img" class="id-received-chats-img">
+        //                                  <avatar_img id="id-avatar_img" src="user2.png">
+        //                             </img_div>
+        //                             <span class="time">18:06 PM | July 24 </span>
+        //                             <p>Hi !! This is message from Riya!</p>
+        //                              <!-- MSG END -->
+        //                         </msg_div>
+        //                      </received_msg_div>
+        // <!-- End Msg -->
+
+        // Add new div with username and message in id-received-chats
+        var received_msg_div = document.createElement("div");
+        received_msg_div.className = "received-msg";
+        received_msg_div.id = "id-received-msg";
+        document.querySelector("#id-received-chats").appendChild(received_msg_div);
+
+        var msg_div = document.createElement("div");
+        msg_div.className = 'received-msg-inbox';
+        msg_div.id = 'id-received-msg-inbox';
+        msg_div.innerHTML = `<div class="received-chats-img"> <img src="{% static 'images/user_icon2.png' %}">
+                                <span class="time">${data.username} | ${data.date}</span></div>`;
+        msg_div.innerHTML += `<p>${data.message}</p>`;
+        document.querySelector("#id-received-msg").appendChild(msg_div);
+    };
+
+ </script>
+
+</body>
+</html>
