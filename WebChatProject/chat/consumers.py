@@ -59,12 +59,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         message = event["message"]
         username = event["username"]
-        date = str(datetime.date.today())
+        msg_date = str(datetime.datetime.now().strftime("%d %B %Y, %H:%M %p"))
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message,
                                               "username": username,
-                                              "date": date, }))
+                                              "date": msg_date, }))
 
     @database_sync_to_async
     def save_message_to_db(self, message):
@@ -89,7 +89,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             message_history.append({
                 "message": msg.text,
                 "username": msg.user.username,
-                "date": str(msg.timestamp)
+                "date": str(msg.timestamp.strftime("%d %B %Y, %H:%M %p"))
             })
 
         return message_history
