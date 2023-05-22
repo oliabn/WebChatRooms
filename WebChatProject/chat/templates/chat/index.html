@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<form method ="post">
+    {% csrf_token %}
+
     <div class="container">
         <div class="input_section">
             <div class="form_box">
@@ -15,7 +18,7 @@
 
                 <div class="input_box">
                     <label for="">Room name</label>
-                    <input type="text" name="room_name" autofocus="" autocapitalize="none" autocomplete="room_name" maxlength="150" required="" id="id_room_name_input">
+                    <input type="text" name="room_name" autofocus="" autocapitalize="none" autocomplete="room_name" maxlength="150" id="id_room_name_input">
                 </div>
 
                 <input type="submit" class="btn" id="id_room_name_submit" value="❯❯❯">
@@ -30,6 +33,8 @@
           </div>
         </div>
     </div>
+
+</form>
 
 <script>
 
