@@ -10,6 +10,10 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("chat/<str:room_name>/", views.room, name="room"),
 
+    # user profile
+    # http://127.0.0.1:8000/profile/
+    path('profile/', views.profile, name='profile'),
+
     # login, logout
     # http://127.0.0.1:8000/auth/login/
     path("auth/login/", LoginView.as_view(template_name="chat/login.html"), name="login_user"),

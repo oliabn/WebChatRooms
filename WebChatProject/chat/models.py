@@ -1,5 +1,33 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from PIL import Image
+
+
+class Profile(models.Model):
+    """User profile table"""
+
+    # on_delete=models.CASCADE - delete profile when user is deleted
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} profile'
+
+    def save(self, *args, **kwargs):
+        """Override the save method of the model"""
+        super().save( *args, **kwargs)
+
+        # Open image
+        img = Image.open(self.image.path)
+
+        # resize image
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            # Resize image
+            img.thumbnail(output_size)
+            # Save it again and override the larger image
+            img.save(self.image.path)
 
 
 class Room(models.Model):

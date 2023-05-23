@@ -139,7 +139,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Directory where uploaded media is saved
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Public URL at the browser
 MEDIA_URL = '/media/'
 
 # Default primary key field type

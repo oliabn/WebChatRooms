@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" href="{% static 'styles/profile_style.css' %}">
+</head>
+
+<body>
+
+<!-- CURRENT USER INFO HERE -->
+<div class="content-section">
+  <div class="media">
+    <img
+      class="rounded-circle account-img"
+      src="{{ user.profile.image.url }}"
+    />
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+    </div>
+</div>
+
+ <!-- FORM HERE -->
+<form method ="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="container">
+        <div class="input_section">
+            <div class="form_box">
+                <h2>Profile update</h2>
+
+                <!-- User form -->
+                {% for field in user_form.visible_fields %}
+                    <div class="input_box">
+                        {{ field.label }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                      <!-- Profile form -->
+                {% for field in profile_form.visible_fields %}
+                    <div class="input_box">
+                        {{ field.label }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
+                <input type="submit" class="btn" value="Update">
+
+                <div class="group_selection">
+                    <a href="{% url 'index' %}">Room choosing</a>
+<!--                    <a href="{% url 'register' %}">Create account</a>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

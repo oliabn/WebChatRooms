@@ -17,15 +17,20 @@
              <div class="container1">
 
                 <div class="active ">
-                    <img src="{% static 'images/user_icon.png' %}" class="msgimg">
+                    <img src="{{ user.profile.image.url }}" class="msgimg">
                     <p>{{request.user}}</p>
                 </div>
                 <nav class="navigation-list">
         	 	    <ul>
                         {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'index' %}">Room choosing</a></li>
+                            <li><a href="{% url 'profile' %}">Profile</a></li>
             		        <li><a href="{% url 'logout_user' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login_user' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
                         {% endif %}
-            		    <li><a href="#">Something</a></li>
+
             	    </ul>
                 </nav>
 
