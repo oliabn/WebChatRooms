@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
 
 from django import forms
 from django.contrib.auth.models import User
@@ -51,8 +50,6 @@ def register(request):
             form.save()
             # get the username that is submitted from form
             username = form.cleaned_data.get('username')
-            # show success message when account is created
-            messages.success(request, f'Account created for {username}!')
             # redirect user to Index
             return redirect('login_user')
     else:
