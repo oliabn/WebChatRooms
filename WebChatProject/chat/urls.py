@@ -1,4 +1,5 @@
 from django.urls import path, include
+
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
@@ -11,8 +12,12 @@ urlpatterns = [
 
     # login, logout
     # http://127.0.0.1:8000/auth/login/
-    path("auth/login/", LoginView.as_view(template_name="chat/loginPage.html"), name="login_user"),
+    path("auth/login/", LoginView.as_view(template_name="chat/login.html"), name="login_user"),
     path("auth/logout/", LogoutView.as_view(), name="logout_user"),
+
+    # user registration
+    # http://127.0.0.1:8000/auth/register/
+    path("auth/register/", views.register, name="register"),
 
     # change password
     # http://127.0.0.1:8000/auth/change_password/

@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles/auth_form_style.css' %}">
+    <title>Register</title>
+</head>
+<body>
+
+<form method ="post">
+    {% csrf_token %}
+
+    <div class="container">
+        <div class="input_section">
+            <div class="form_box">
+                <h2>Registration</h2>
+
+                <div class="input_box">
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                </div>
+
+                <div class="input_box">
+                    <label for="id_email">Email:</label>
+                    <input type="email" name="email" required="" id="id_email">
+                </div>
+
+                <div class="input_box">
+                    <label for="id_password1">Password:</label>
+                    <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+                </div>
+
+                <div class="input_box">
+                    <label for="id_password2">Password confirmation:</label>
+                    <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+                </div>
+
+                <input type="submit" class="btn" value="❯❯❯">
+
+<!--                <div class="group_selection">-->
+<!--                    <a href="{% url 'password_reset' %}">Forgot Password?</a>-->
+<!--                    <a href="#">Create account</a>-->
+<!--                </div>-->
+
+            </div>
+        </div>
+    </div>
+</form>
+
+    <!-- A simple User registration form creation option -->
+<!--    <form method ="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{form.as_p}}-->
+<!--    <br>-->
+<!--    <button type = "submit">Submit</button>-->
+<!--    </form>-->
+
+</body>
+</html>
