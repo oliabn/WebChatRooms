@@ -89,7 +89,7 @@ $ python manage.py shell
 {'type': 'hello'}
 ```  
 
-Type Control-D to exit the Django shell.
+Type Control-D to exit the Django shell. (or Control-Z)
 
 ## How to test this chat
 1) Install the required packages.    
