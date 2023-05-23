@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Room
-from .forms import RoomNameForm
+from .forms import RoomNameForm, UserRegisterForm
 
 
 def index(request):
@@ -33,3 +38,23 @@ def room(request, room_name):
 
     context = {"room_name": room_name}
     return render(request, "chat/chat.html", context)
+
+
+def register(request):
+    """User registration"""
+
+    # When the user filled out the form and submits it
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            # save user to DB
+            form.save()
+            # get the username that is submitted from form
+            username = form.cleaned_data.get('username')
+            # show success message when account is created
+            messages.success(request, f'Account created for {username}!')
+            # redirect user to Index
+            return redirect('login_user')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'chat/register.html', {'form': form})
