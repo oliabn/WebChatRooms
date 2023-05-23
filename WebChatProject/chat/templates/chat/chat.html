@@ -23,9 +23,14 @@
                 <nav class="navigation-list">
         	 	    <ul>
                         {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'index' %}">Room choosing</a></li>
+                            <li><a href="{% url 'profile' %}">Profile</a></li>
             		        <li><a href="{% url 'logout_user' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login_user' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
                         {% endif %}
-            		    <li><a href="#">Something</a></li>
+
             	    </ul>
                 </nav>
 
