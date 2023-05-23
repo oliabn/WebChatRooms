@@ -17,7 +17,7 @@
              <div class="container1">
 
                 <div class="active ">
-                    <img src="{% static 'images/user_icon.png' %}" class="msgimg">
+                    <img src="{{ user.profile.image.url }}" class="msgimg">
                     <p>{{request.user}}</p>
                 </div>
                 <nav class="navigation-list">

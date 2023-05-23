@@ -18,6 +18,21 @@
     </div>
   </div>
   <!-- FORM HERE -->
+      <form method="POST" enctype="multipart/form-data">
+        <!-- enctype="multipart/form-data" - helps saving image data. -->
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Profile Info</legend>
+      <!-- User form -->
+      {{ user_form.as_p }}
+      <!-- Profile form -->
+      {{ profile_form.as_p }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+  </form>
+
 </div>
 
 </body>
