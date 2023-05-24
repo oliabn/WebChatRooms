@@ -1,10 +1,11 @@
+import os
 import json
 import datetime
 
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from .models import Message, Room
+from .models import Message, Room, Profile
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -46,7 +47,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # save message to Message table
         await self.save_message_to_db(message=message)
 
-        # Sends an event to a group
+        # sends an event to a group
         # event has "type": "sendMessage", where sendMessage is function below
         await self.channel_layer.group_send(self.room_group_name,
                                             {"type": "send_message",
@@ -60,11 +61,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         username = event["username"]
         msg_date = str(datetime.datetime.now().strftime("%d %B %Y, %H:%M %p"))
+        sender_img_url = await self.get_sender_profile_img(username)
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message,
                                               "username": username,
-                                              "date": msg_date, }))
+                                              "date": msg_date,
+                                              "sender_img_url": sender_img_url },))
 
     @database_sync_to_async
     def save_message_to_db(self, message):
@@ -79,17 +82,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
         """Get messages of room group from the table Message.
         Return a list of dictionaries with messages,
         usernames, and dates:
-        [{"message": msg1.text, "username": msg1.user.username, "date": str(msg1.timestamp)},
-        {"message": msg2.text, "username": msg2.user.username, "date": str(msg2.timestamp)},
-        ...]"""
+        [{"message": msg1.text,
+        "username": msg1.user.username,
+        "date": str(msg1.timestamp),
+        "sender_img_url": msg.user.profile.image.url}, ...]"""
 
-        messages = Message.objects.all().filter(room__name=self.room_name)
         message_history = []
-        for msg in messages:
+        # get messages from room
+        msgs = Message.objects.all().filter(room__name=self.room_name)
+        for msg in msgs:
             message_history.append({
                 "message": msg.text,
                 "username": msg.user.username,
-                "date": str(msg.timestamp.strftime("%d %B %Y, %H:%M %p"))
+                "date": str(msg.timestamp.strftime("%d %B %Y, %H:%M %p")),
+                "sender_img_url": str(msg.user.profile.image.url),
             })
 
         return message_history
+
+    @database_sync_to_async
+    def get_sender_profile_img(self, username):
+        """Get image url from message sender profile """
+
+        profile = list(Profile.objects.all().filter(user__username=username))
+        img_url = profile[0].image.url
+        return img_url
