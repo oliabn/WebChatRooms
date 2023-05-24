@@ -130,7 +130,7 @@
         var msg_div = document.createElement("div");
         msg_div.className = 'received-msg-inbox';
         msg_div.innerHTML = `<div class="received-chats-img"> <img src="${data.sender_img_url}">
-                                <span class="time">${data.username} | ${data.date} | ${data.sender_img_url}</span></div>`;
+                                <span class="time">${data.username} | ${data.date}</span></div>`;
         msg_div.innerHTML += `<p>${data.message}</p>`;
         received_msg_div.appendChild(msg_div);
 

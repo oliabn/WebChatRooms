@@ -5,10 +5,7 @@ import datetime
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from .models import Message, Room, User, Profile
-
-
-os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+from .models import Message, Room, Profile
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -50,7 +47,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # save message to Message table
         await self.save_message_to_db(message=message)
 
-        # Sends an event to a group
+        # sends an event to a group
         # event has "type": "sendMessage", where sendMessage is function below
         await self.channel_layer.group_send(self.room_group_name,
                                             {"type": "send_message",
@@ -64,7 +61,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         username = event["username"]
         msg_date = str(datetime.datetime.now().strftime("%d %B %Y, %H:%M %p"))
-
         sender_img_url = await self.get_sender_profile_img(username)
 
         # Send message to WebSocket
@@ -81,7 +77,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                text=message,
                                room=Room.objects.get(name=self.room_name))
 
-    async def get_message_history(self):
+    @database_sync_to_async
+    def get_message_history(self):
         """Get messages of room group from the table Message.
         Return a list of dictionaries with messages,
         usernames, and dates:
@@ -90,13 +87,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         "date": str(msg1.timestamp),
         "sender_img_url": msg.user.profile.image.url}, ...]"""
 
-        @database_sync_to_async
-        def get_all_msgs_from_room():
-            """Get messages from room group"""
-            return Message.objects.all().filter(room__name=self.room_name)
-
         message_history = []
-        msgs = await get_all_msgs_from_room()
+        # get messages from room
+        msgs = Message.objects.all().filter(room__name=self.room_name)
         for msg in msgs:
             message_history.append({
                 "message": msg.text,
