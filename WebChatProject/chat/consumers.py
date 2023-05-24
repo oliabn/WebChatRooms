@@ -4,7 +4,7 @@ import datetime
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from .models import Message, Room
+from .models import Message, Room, User, Profile
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -61,10 +61,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = event["username"]
         msg_date = str(datetime.datetime.now().strftime("%d %B %Y, %H:%M %p"))
 
+        profile_img_url = await self.get_sender_profile_img(username)
+        print(profile_img_url)
+
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message,
                                               "username": username,
-                                              "date": msg_date, }))
+                                              "date": msg_date},))
 
     @database_sync_to_async
     def save_message_to_db(self, message):
@@ -93,3 +96,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             })
 
         return message_history
+
+    @database_sync_to_async
+    def get_sender_profile_img(self, username):
+        """Get profile of message sender"""
+
+        profile = list(Profile.objects.all().filter(user__username=username))
+        img_url = profile[0].image.url
+        return img_url
