@@ -129,7 +129,7 @@ If you want to use Redis
 
 `python manage.py migrate`  
 
-3) You need to create 2 superusers through the terminal:  
+3) You need to create superuser:  
 
 `python manage.py createsuperuser`  
 
