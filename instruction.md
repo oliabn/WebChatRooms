@@ -1,5 +1,6 @@
 ## How to launch in Ubuntu
-ssh aws
+```
+ssh aws  
 tmux attach
 sudo apt update
 sudo apt upgrade
@@ -12,3 +13,4 @@ source venv/bin/activate
 pip install -r ./requirements/requirements.txt
 cd WebChatProject
 python manage.py runserver 0.0.0.0:8000
+```
