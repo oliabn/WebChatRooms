@@ -31,18 +31,32 @@ INSTALLED_APPS = [
 ### What also need to be added to setting.py:  
 
 ```python
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv, find_dotenv
+
+
+# load secret info
+load_dotenv(find_dotenv())
+
+DJANGO_SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+HOST_USER_EMAIL = os.getenv('HOST_USER_EMAIL')
+HOST_APP_PASSWORD = os.getenv('HOST_APP_PASSWORD')
+
+# ASGI
 ASGI_APPLICATION = 'WebChatProject.asgi.application'
 
 """Define the channel layer in which we will be working 
 and sharing data """
-# For Windows
+# For Windows without Redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
 
-# For Linux
+# For Linux with Redis
 # "default": {
 #         "BACKEND": "asgi_redis.RedisChannelLayer",
 #         "CONFIG": {
@@ -51,6 +65,13 @@ CHANNEL_LAYERS = {
 #     },
 # }
 
+
+STATIC_URL = '/static/'
+
+# Directory where uploaded media is saved
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Public URL at the browser
+MEDIA_URL = '/media/'
 
 # redirect url for login, logout
 LOGIN_REDIRECT_URL = "index"
@@ -63,8 +84,8 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = "your email address like the sender"
-EMAIL_HOST_PASSWORD = "app-password to your email"
+EMAIL_HOST_USER = HOST_USER_EMAIL
+EMAIL_HOST_PASSWORD = HOST_APP_PASSWORD
 ```
 
 ## Redis
@@ -95,12 +116,10 @@ Type Control-D to exit the Django shell. (or Control-Z)
 1) Install the required packages.    
 * Django==4.2.1  
 * channels==3.0.4 
-* asgi-redis==1.4.3 
-* channels-redis==4.1.0   
 
-! If you are going to install these versions of the packages,   
-installed them one at a time, not all at the same time.   
-Because there will be Errors and something will not be installed.   
+If you want to use Redis  
+* asgi-redis==1.4.3 
+* channels-redis==4.1.0
 
 2) Make migrations. In the terminal:
 

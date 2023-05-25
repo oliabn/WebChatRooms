@@ -5,6 +5,7 @@ from .models import Room
 from .forms import RoomNameForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
+@login_required
 def index(request):
     """Room name entering and go to chat with the room_name"""
 

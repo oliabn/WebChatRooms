@@ -34,7 +34,7 @@ SECRET_KEY = DJANGO_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "olalab.hopto.org"]
 
 
 # Application definition
@@ -83,14 +83,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'WebChatProject.wsgi.application'
 ASGI_APPLICATION = 'WebChatProject.asgi.application'
 
-# For Windows
+# For Windows without Redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
 
-# For Linux
+# For Linux, for Redis
 # "default": {
 #         "BACKEND": "asgi_redis.RedisChannelLayer",
 #         "CONFIG": {
