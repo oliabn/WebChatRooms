@@ -3,6 +3,9 @@
 venv/
 idea/
 
+.env
+env/
+
 passwors.py
 tokens.py
 

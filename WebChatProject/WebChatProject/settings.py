@@ -12,7 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-from .passwors import DJANGO_SECRET_KEY, HOST_USER_EMAIL, HOST_APP_PASSWORD
+from dotenv import load_dotenv, find_dotenv
+
+# load secret info
+load_dotenv(find_dotenv())
+
+DJANGO_SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+HOST_USER_EMAIL = os.getenv('HOST_USER_EMAIL')
+HOST_APP_PASSWORD = os.getenv('HOST_APP_PASSWORD')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

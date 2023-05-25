@@ -16,7 +16,8 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         """Override the save method of the model"""
-        super().save( *args, **kwargs)
+
+        super().save(*args, **kwargs)
 
         # Open image
         img = Image.open(self.image.path)
