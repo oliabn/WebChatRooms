@@ -33,6 +33,12 @@
                     <a href="{% url 'register' %}">Create account</a>
                 </div>
 
+                <div> <br/>
+                {% if form.errors %}
+                    Your username or/and password didn't match.
+                {% endif %}
+                </div>
+
             </div>
         </div>
     </div>

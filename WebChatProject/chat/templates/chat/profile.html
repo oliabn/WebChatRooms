@@ -51,6 +51,13 @@
                     <a href="{% url 'change_password' %}">Change password</a>
                 </div>
 
+                <div> <br/>
+                {% if user_form.errors %}
+                    <br/>
+                    {{ user_form.errors }}
+                {% endif %}
+                </div>
+
             </div>
         </div>
     </div>
