@@ -12,9 +12,18 @@
     {% csrf_token %}
 
     <div class="container">
-        <div class="input_section">
+        <div class="input_section_register">
             <div class="form_box">
                 <h2>Registration</h2>
+
+<!--                {% for field in form %}-->
+<!--                <div class="input_box">-->
+
+<!--                    {{ field.label_tag }}-->
+<!--                    {{ field }}-->
+<!--                    {{ field.errors }}-->
+<!--                </div>-->
+<!--                {% endfor %}-->
 
                 <div class="input_box">
                     <label for="id_username">Username</label>
@@ -42,6 +51,13 @@
 <!--                    <a href="{% url 'password_reset' %}">Forgot Password?</a>-->
 <!--                    <a href="#">Create account</a>-->
 <!--                </div>-->
+
+                <div> <br/>
+                {% if form.errors %}
+                    <br/>
+                    {{ form.errors }}
+                {% endif %}
+                </div>
 
             </div>
         </div>

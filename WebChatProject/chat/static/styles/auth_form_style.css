@@ -25,13 +25,21 @@ body {
 }
 
 .input_section {
-    height: 400px;
-    width: 400px;
+    height: 600px;
+    width: 500px;
     background: rgba(255,255,255,.1);
     border-radius: 16px;
     backdrop-filter: blur(7px);
     border: 1px solid rgba(0,0,0,.3);
+}
 
+.input_section_register {
+    height: 760px;
+    width: 600px;
+    background: rgba(255,255,255,.1);
+    border-radius: 16px;
+    backdrop-filter: blur(7px);
+    border: 1px solid rgba(0,0,0,.3);
 }
 
 .form_box {
@@ -42,6 +50,12 @@ body {
 }
 
 .input_section h2 {
+    text-align: center;
+    font_size: 38px;
+    color: #323433;
+}
+
+.input_section_register  {
     text-align: center;
     font_size: 38px;
     color: #323433;
@@ -106,4 +120,7 @@ input:valid ~ label {
     color: #00b1cc;
     font-weight: 600;
     text-decoration: underline;
+}
+
+.errors_selection {
 }
