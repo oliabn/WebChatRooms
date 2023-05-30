@@ -16,10 +16,19 @@
             <div class="form_box">
                 <h2>Room</h2>
 
+                {% for room in rooms %}
+
+                <div class="input_box">
+                    <a href = "{{ room.get_absolute_url }}"> {{ room.name }} </a>
+                </div>
+
+                {% endfor %}
+
                 <div class="input_box">
                     <label for="">Room name</label>
                     <input type="text" name="room_name" autofocus="" autocapitalize="none" autocomplete="room_name" maxlength="150" id="id_room_name_input">
                 </div>
+
 
                 <input type="submit" class="btn" id="id_room_name_submit" value="❯❯❯">
 

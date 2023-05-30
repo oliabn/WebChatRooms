@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import login
-from .models import Room
+from .models import Room, Profile
 from .forms import RoomNameForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -12,6 +12,12 @@ def index(request):
 
     form = RoomNameForm(request.POST or None)
 
+    # get username
+    username = request.user.username
+    # get user rooms from user profile
+    profile = Profile.objects.get(user__username=username)
+    rooms = profile.rooms.all()
+
     # When the user entered a room name and submits it
     if request.method == 'POST':
         if form.is_valid():
@@ -19,12 +25,17 @@ def index(request):
             room_name = form.cleaned_data['room_name']
             # get a room with room_name from DB or create it in DB (if not exist)
             room, created = Room.objects.get_or_create(name=room_name)
+            # add room to user profile if not exists
+            if not room.profile_set.contains(profile):
+                profile.rooms.add(room)
+                # save user profile with added room
+                profile.save()
             context = {"room_name": room_name}
             return render(request, "chat/chat.html", context)
         else:
             print(form.errors)
 
-    return render(request, 'chat/index.html', context={'form': form})
+    return render(request, 'chat/index.html', context={'form': form, "rooms": rooms})
 
 
 def room(request, room_name):

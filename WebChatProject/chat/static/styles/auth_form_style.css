@@ -68,6 +68,19 @@ body {
     border-bottom: 1px solid #252727;
 }
 
+.input_box a {
+    font-size: 16px;
+    text-decoration: none;
+    /* font-weight: 500; */
+    transition: .3s;
+}
+
+.input_box a:hover {
+    color: #00b1cc;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 .input_box input {
     width: 90%;
     height: 50px;
