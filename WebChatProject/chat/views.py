@@ -108,14 +108,19 @@ def delete_room(request):
 
     # When the user chose a room to delete and submits it
     if request.method == 'POST':
-        # get room id
-        room_id = request.POST['room']
-        # get room instance with that id
-        room = Room.objects.get(id=room_id)
-        # del room from user rooms
-        profile.rooms.remove(room)
-        # save profile without deleted room
-        profile.save()
+        try:
+            # get room id
+            room_id = request.POST['room']
+            # get room instance with that id
+            room = Room.objects.get(id=room_id)
+            # del room from user rooms
+            profile.rooms.remove(room)
+            # save profile without deleted room
+            profile.save()
+        # When the user does not choose a room but submits the form
+        except (KeyError):
+            context = {'rooms': rooms, "error_message": "You have not selected a room."}
+            return render(request, "chat/delete_room.html", context)
 
     context = {'rooms': rooms}
     return render(request, 'chat/delete_room.html', context)

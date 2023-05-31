@@ -33,8 +33,8 @@
                 </div>
 
                 <div> <br/>
-                {% if form.errors %}
-                    Something wrong.
+                {% if error_message %}
+                    {{ error_message }}
                 {% endif %}
                 </div>
 
