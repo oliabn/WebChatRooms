@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetDoneView
@@ -13,6 +13,8 @@ urlpatterns = [
     # user profile
     # http://127.0.0.1:8000/profile/
     path('profile/', views.profile, name='profile'),
+    # delete room from user profile
+    path('delete_room/', views.delete_room, name='delete_room'),
 
     # login, logout
     # http://127.0.0.1:8000/auth/login/

@@ -66,6 +66,24 @@ body {
     color: #323433;
 }
 
+.deleted_rooms_selection {
+    font-size: 16px;
+    text-decoration: none;
+    margin: 20px 0;
+    width: 310px;
+    border-bottom: 1px solid #252727;
+    border: none;
+    outline: none;
+    max-height: 250px;
+    overflow: auto;      /* Enables scrolling if content exceeds height */
+}
+
+.deleted_rooms_selection label:hover {
+    color: #00b1cc;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 .form_box  .input_box {
     position: relative;
     margin: 20px 0;
