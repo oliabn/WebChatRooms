@@ -24,6 +24,11 @@ body {
     min-height: 100vh;
 }
 
+ .links_container {
+    max-height: 250px;
+    overflow: auto;      /* Enables scrolling if content exceeds height */
+  }
+
 .input_section {
     height: 600px;
     width: 500px;
@@ -66,6 +71,19 @@ body {
     margin: 20px 0;
     width: 310px;
     border-bottom: 1px solid #252727;
+}
+
+.input_box a {
+    font-size: 16px;
+    text-decoration: none;
+    /* font-weight: 500; */
+    transition: .3s;
+}
+
+.input_box a:hover {
+    color: #00b1cc;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .input_box input {
