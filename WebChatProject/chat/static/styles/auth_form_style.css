@@ -24,6 +24,11 @@ body {
     min-height: 100vh;
 }
 
+ .links_container {
+    max-height: 250px;
+    overflow: auto;      /* Enables scrolling if content exceeds height */
+  }
+
 .input_section {
     height: 600px;
     width: 500px;

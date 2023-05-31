@@ -16,13 +16,13 @@
             <div class="form_box">
                 <h2>Room</h2>
 
-                {% for room in rooms %}
-
-                <div class="input_box">
-                    <a href = "{{ room.get_absolute_url }}"> {{ room.name }} </a>
+                <div class="links_container">
+                    {% for room in rooms %}
+                        <div class="input_box">
+                            <a href = "{{ room.get_absolute_url }}"> {{ room.name }} </a>
+                        </div>
+                    {% endfor %}
                 </div>
-
-                {% endfor %}
 
                 <div class="input_box">
                     <label for="">Room name</label>
