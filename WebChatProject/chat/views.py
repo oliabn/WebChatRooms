@@ -93,3 +93,34 @@ def profile(request):
     context = {'user_form': user_form, 'profile_form': profile_form}
 
     return render(request, 'chat/profile.html', context)
+
+
+@login_required
+def delete_room(request):
+    """Delete room from user profile.rooms.
+    A user leaving some chat """
+
+    # get username
+    username = request.user.username
+    # get user rooms from user profile
+    profile = Profile.objects.get(user__username=username)
+    rooms = profile.rooms.all()
+
+    # When the user chose a room to delete and submits it
+    if request.method == 'POST':
+        try:
+            # get room id
+            room_id = request.POST['room']
+            # get room instance with that id
+            room = Room.objects.get(id=room_id)
+            # del room from user rooms
+            profile.rooms.remove(room)
+            # save profile without deleted room
+            profile.save()
+        # When the user does not choose a room but submits the form
+        except (KeyError):
+            context = {'rooms': rooms, "error_message": "You have not selected a room."}
+            return render(request, "chat/delete_room.html", context)
+
+    context = {'rooms': rooms}
+    return render(request, 'chat/delete_room.html', context)

@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+       <link rel="stylesheet" href="{% static 'styles/auth_form_style.css' %}">
+    <title>Delete room</title>
+</head>
+<body>
+
+
+<form action="{% url  'delete_room' %}" method="post">
+    {% csrf_token %}
+
+    <div class="container">
+        <div class="input_section">
+            <div class="form_box">
+                <h2>Room delete</h2>
+
+                    <fieldset class="deleted_rooms_selection">
+                        {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+                        <legend><h3>Choose the room</h3></legend>
+                        {% for room in rooms %}
+                            <input type="radio" name="room" id="room{{ room.name}}" value="{{ room.id }}">
+                            <label for="room{{ room.name}}">{{ room.name }}</label><br>
+                        {% endfor %}
+                    </fieldset>
+
+                <input type="submit" class="btn" value="Delete">
+
+                <div class="group_selection">
+                    <a href="{% url 'index' %}">Room choosing</a>
+                </div>
+
+                <div> <br/>
+                {% if error_message %}
+                    {{ error_message }}
+                {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--<form action="{% url  'delete_room' %}" method="post">-->
+<!--{% csrf_token %}-->
+<!--<fieldset>-->
+<!--    <legend><h3>Rooms</h3></legend>-->
+<!--    {% for room in rooms %}-->
+<!--        <input type="radio" name="room" id="room{{ room.name}}" value="{{ room.id }}">-->
+<!--        <label for="room{{ room.name}}">{{ room.name }}</label><br>-->
+<!--    {% endfor %}-->
+<!--</fieldset>-->
+<!--<input type="submit" value="Delete">-->
+<!--</form>-->
+
+
+</body>
+</html>
