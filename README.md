@@ -5,7 +5,7 @@
 ![image](https://github.com/oliabn/WebChatRooms/assets/5529216/e8b09bbf-77c0-471e-9fb7-41431e8216fb)
 
 
-
+## Django Channels documentation
 Channels documentation: https://channels.readthedocs.io/en/stable/index.html  
 
 Channels tutorial: https://channels.readthedocs.io/en/latest/tutorial/index.html
