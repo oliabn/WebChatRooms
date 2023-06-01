@@ -2,6 +2,7 @@
 ```
 ssh aws  
 tmux attach
+
 sudo apt update
 sudo apt upgrade
 

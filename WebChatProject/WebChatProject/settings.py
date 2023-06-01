@@ -83,14 +83,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'WebChatProject.wsgi.application'
 ASGI_APPLICATION = 'WebChatProject.asgi.application'
 
-# For Windows without Redis
+# Without Redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
 
-# For Linux, for Redis
+# With Redis
 # "default": {
 #         "BACKEND": "asgi_redis.RedisChannelLayer",
 #         "CONFIG": {

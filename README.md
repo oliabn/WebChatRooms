@@ -90,7 +90,7 @@ EMAIL_HOST_PASSWORD = HOST_APP_PASSWORD
 
 ## Redis
 
-I run Redis by Docker.
+If you use Windows you can run Redis by Docker.
 
 * To start a Redis server on port 6379, run the following command:
 
