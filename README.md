@@ -147,4 +147,4 @@ If you want to use Redis
 
 5) Move to the site and start two different browsers. 
 Login like two different users from different browsers.
-6) Write messages in the chat
+6) Enter the same room names from both users so that they get into the same chat. Write messages in the chat
