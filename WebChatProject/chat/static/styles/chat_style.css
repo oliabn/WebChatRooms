@@ -14,7 +14,7 @@
 /* The main container */
 
 .container {
-    width: 80%;
+    width: 73%;
     margin: auto;
     margin-top: 2rem;
     letter-spacing: 0.5px;
@@ -135,7 +135,7 @@ img {
     margin-right: 20px;
     outline: none !important;
     border-radius: 20px;
-    width: 61% !important;
+    width: 97% !important;
     background-color: #F0FFFF;
     position: relative;
     display: flex;
