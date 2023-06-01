@@ -57,14 +57,14 @@ ASGI_APPLICATION = 'WebChatProject.asgi.application'
 
 """Define the channel layer in which we will be working 
 and sharing data """
-# For Windows without Redis
+# Without Redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
 
-# For Linux with Redis
+# With Redis
 # "default": {
 #         "BACKEND": "asgi_redis.RedisChannelLayer",
 #         "CONFIG": {
@@ -96,7 +96,7 @@ EMAIL_HOST_USER = HOST_USER_EMAIL
 EMAIL_HOST_PASSWORD = HOST_APP_PASSWORD
 ```
 
-## Redis
+## Redis (If you want to use Redis)
 
 If you use Windows you can run Redis by Docker.
 
